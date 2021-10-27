@@ -1,0 +1,181 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+
+{% block content %}
+<div class="content">
+
+
+
+
+
+  <div class="head">
+    <div class="d-flex bd-highlight mb-3 bg-light p-4">
+
+        <div class="p-2 bd-highlight"><a type="button" href="/" class="btn btn-outline-danger" role="button">トップに戻る</a></div>
+        <div class="ms-auto p-2 bd-highlight"><h2 class="fw-bold fs-3">{{ newmessage }}</h2></div>
+    </div>
+  </div>
+
+
+  <div class="housepost w-75 mx-auto">
+
+      <div>
+           <ul class="nav nav-tabs" role="tablist">
+           <!--一つ目のタブ message 部分-->
+               <li class="nav-item" role="presentation">
+                   <a class="nav-link active fw-bold" href="#msgs" data-bs-toggle="tab" role="tab" aria-controls="msgs">いまリクエストしている空き家</a>
+               </li>
+           <!-- second tab form part-->
+               <li class="nav-item" role="presentation">
+                   <a class="nav-link fw-bold" href="#forms" data-bs-toggle="tab" role="tab" aria-controls="forms">借りたい空き家登録フォーム</a>
+               </li>
+           <!-- third tab form part-->
+               <li class="nav-item" role="presentation">
+                   <a class="nav-link fw-bold" href="#history" data-bs-toggle="tab" role="tab" aria-controls="forms">空き家をみる</a>
+               </li>
+           </ul>
+
+      </div>
+      <!--切り替えタブ部分　-->
+
+
+<!-- content part -->
+<div class="tab-content">
+    <!-- first content -->
+    <div class="tab-pane fade show active" id="msgs" role="tabpanel">
+        <h5 class="p-3 h5 text-center"> * いまリクエストしている空き家 * </h5>
+
+          <div>
+            <div class="card mt-4">
+            <div class="card-body">
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col" class="fw-bold">GoogleMap</th>
+                    <th scope="col" class="fw-bold">空き家のオーナー名</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in postreqind  | reverse %}
+                <tr>
+                    <td>{{ i.UserGoogleMap }}</td>
+                    <td>{{ i.UserOwnerName }}</td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <!--second content -->
+    <div class="tab-pane fade" id="forms" role="tabpanel">
+        <h5 class="mt-4 fw-bold text-center h5">
+           * 借りたい空き家情報の登録フォーム *
+        </h5>
+        <div class="card mt-4">
+            <div class="card-body">
+                <form method="post" action="/login/postreq">
+                <div class="form-group">
+
+                    <div class="my-3">
+                        <label for="usergoogle" class="form-label my-3">借りたい空き家の入力（住所をGooglemapでご入力お願いたします。）</label>
+                        <input type="text" class="form-control" id="usergoogle" name="usergoogle" maxlength='245' placeholder="※GoogleMapのアドレス">
+
+
+
+                        <label for="usertoowner" class="form-label my-3">借りたい空き家のオーナーを入力</label>
+                        <input type="text" class="form-control" id="usertoowner" name="usertoowner" required>
+
+
+
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                           <input class="btn btn-primary my-3" type="submit" value="空き家のリクエスト">
+                        </div>
+
+
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- third content -->
+    <div class="tab-pane fade show active" id="history" role="tabpanel">
+        <h5 class="p-3 h5 text-center"> * 掲載されている空き家 * </h5>
+
+        <table class="table table-striped w-75 mx-auto">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">都道府県</th>
+                <th scope="col">市区町村</th>
+                <th scope="col">Googlemap URL</th>
+                <th scope="col">空き家のオーナー</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in housedatas %}
+            <tr>
+                <td>#</td>
+                <td>{{ i.OwnerPrefecture}}</td>
+                <td>{{ i.OwnerCity }}</td>
+                <td>{{ i.OwnerGoogleMap }}</td>
+                <td>{{ i.OwnerGroup }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+</div> <!--content-->
+{% endblock %}
+
+
+
+
+
+
+
+
+
+{% block footer %}
+
+
+{% endblock %}

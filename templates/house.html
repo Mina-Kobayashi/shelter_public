@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+空き家一覧
+{% endblock %}
+
+{% block content %}
+<div class="con">
+
+
+<div class="bg-light head">
+    <div class="p-4">
+        <a type="button" href="/" class="btn btn-outline-danger" role="button">トップに戻る</a>
+    </div>
+</div>
+
+
+
+
+<div class="houses">
+  <h1 class="text-center fs-1 fw-bold my-5"> 掲載いただいている空き家 </h1>
+  <table class="table table-striped w-75 mx-auto">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">都道府県</th>
+      <th scope="col">市区町村</th>
+      <th scope="col">Googlemap URL</th>
+      <th scope="col">空き家のオーナー</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in housedatas %}
+    <tr>
+      <td>#</td>
+      <td>{{ i.OwnerPrefecture}}</td>
+      <td>{{ i.OwnerCity }}</td>
+      <td>{{ i.OwnerGoogleMap }}</td>
+      <td>{{ i.OwnerGroup }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+</div>
+
+
+
+
+
+</div>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}>

@@ -1,0 +1,271 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+
+
+{% block content %}
+<div class="content">
+
+
+<div class="headpart">
+
+    <div class="d-flex bd-highlight mb-3 bg-light p-4 head">
+        <div class="me-auto p-2 bd-highlight"><a type="button" href="/house" class="btn btn-outline-danger" role="button">空き家をみる</a></div>
+        <div class="p-2 bd-highlight"><button type="button" class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#house_register">空き家を登録する</button></div>
+        <div class="p-2 bd-highlight"><button type="button" class="btn btn-outline-danger mx-2" data-bs-toggle="modal" data-bs-target="#user_register">ユーザー登録する</button></div>
+    </div>
+
+    {% if already %}
+　　　　　<div class="alert alert-danger" role="alert">
+    　　　　{{ alreadymsg }}
+　　　　　</div>
+    {% endif %}
+
+
+    <div class="text-center text-white fs-bold text">
+        <h1 class="fs-2 fw-bold">逃れてきた難民の方々へ安全な場所を</h1>
+        <h1 class="fs-2 fw-bold pt-2">空き家・貸してくださるお家があればご協力いただけると幸いです</h1>
+        <div class="d-grid gap-2 col-3 mx-auto mt-5">
+            <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#house_register">空き家を登録する</button>
+        </div>
+    </div>
+
+</div>
+
+
+<!---------------------------------Modal for new house owner------------------------------------------------------>
+
+<div class="modal fade" id="house_register" tabindex="-1" aria-labelledby="exampleModalLabe" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+        <div class="modal-header">
+            <h3 class="fw-bold text-center" id="exampleModalLabe">新規登録の方はこちらです。</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+       <div class="modal-body">
+        <form class="row g-2" method="post" action="/new/houseowner">
+            <div class="form-group col-md-6">
+                <label class="form-label">姓　（代表者様）</label>
+                <input type="text" id="firstnewho" name="firstnewho" class="form-control" placeholder="例：鈴木" required="required" maxlength="35">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="form-label">名　（代表者様）</label>
+                <input type="text" id="lastnewho" name="lastnewho" class="form-control" placeholder="例：太郎" required="required" maxlength="35">
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label my-3">団体名</label>
+                <input type="text" class="form-control" name="groupnewho" id="groupho">
+            </div>
+
+            <div class="mt-3">
+                <label for="pswdnewho" class="form-label my-3">パスワード</label>
+                <input type="password" class="form-control" name="pswdnewho" id="pswdnewho">
+            </div>
+
+            <div class="mt-3">
+                <label for="mailho" class="form-label">メールアドレス</label>
+    　　　　　　　　<input type="email" class="form-control" id="mailho" name="mailho" aria-describedby="emailHelp" placeholder="例：aaaaa@example.com">
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label my-3">電話番号　ハイフン（‐）ありでお願いいたします。</label>
+                <input type="text" class="form-control" name="callnumho" id="callnumho" placeholder="例：123-4567-8910">
+            </div>
+
+            <input type="submit" class="btn btn-danger gap-2 col-3 mx-auto " value="登録">
+        </form>
+
+           <!--MODAL LOGIN PART-->
+           <div class="LoginPart">
+               <h1 class="text-center">---------------------------------------------------------------------</h1>
+               <h2 class="my-4 fw-bold text-center">ログインはこちらです<br>暖かいご支援ありがとうございます。</h2>
+
+
+               <form class="row g-2" method="post" action="/login/houseowner">
+
+            <div class="mt-3">
+                <label class="form-label my-3">団体名</label>
+                <input type="text" class="form-control" name="grouplogho" id="grouplogho">
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label my-3">パスワード</label>
+                <input type="password" class="form-control" name="pswdlogho">
+            </div>
+
+            <input type="submit" class="btn btn-danger gap-2 col-3 mx-auto mb-3" value="ログイン">
+        </form>
+
+           </div>
+
+        </div>
+
+
+
+
+        <div class="modal-footer">
+            <div class="form-group">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="w-50 mx-auto my-5 py-5">
+    <h1 class="text-center fs-2 fw-bold py-2">いつも暖かいご支援ありがとうございます。</h1>
+    <p class="text-center fw-bold py-2">2020年末時点で、紛争や迫害により故郷を追われた人の数は8,240万人です。(UNHCR報告書より)その中から毎年多くの難民が日本に逃れてきたにも関わらず、ビザを発行されるのは約0.2％です。</p>
+    <p class="text-center fw-bold py-2">生活していくお金もなく、ホームレスになり公園で寝泊りしている方々がいます。</p>
+    <p class="text-center fw-bold py-2">日本には空き家がたくさんあります。2018年地点で全国には846万戸の空き家があるといわれています。(国土交通省空き家調査より)今後少子高齢化に伴い空き家はより増えていくと予想されています。</p>
+    <p class="text-center fw-bold py-2">空き家を提供することで、避難してきた方々に暖かい支援をしたいと考えています。難民の方が安心して暮らせる場所を提供するために、お力をお貸しくださると幸いです。</p>
+</div>
+
+
+
+
+
+<div class="users">
+    <h1 class="fs-2 fw-bold my-5 text-center">お家をお探しの皆様へ</h1>
+
+    <div class="">
+
+        <div class="row justify-content-evenly bg-light">
+          <div class="col-5">
+            <img class="w-100" src="https://cdn.pixabay.com/photo/2018/01/23/20/48/bedroom-3102376_1280.jpg">
+          </div>
+         <div class="col-5 text-center pt-5">
+             <p>様々な空き家情報を掲載しています。</p>
+             <a type="button" href="/house" class="btn btn-outline-danger btn-lg mt-5" role="button">空き家をみる</a>
+         </div>
+       </div>
+
+
+        <div class="row justify-content-evenly my-5 bg-light">
+         <div class="col-5 text-center pt-5">
+             <p>いつもご支援ありがとうございます。<br>ユーザー登録することで空き家を借りることが可能になります。</p>
+             <button type="button" class="btn btn-outline-danger btn-lg mt-4" data-bs-toggle="modal" data-bs-target="#user_register">ユーザー登録する</button>
+         </div>
+         <div class="col-5">
+            <img class="w-100" src="https://cdn.pixabay.com/photo/2019/05/13/14/14/sleep-4200036_1280.jpg">
+          </div>
+       </div>
+
+
+
+
+    </div>
+
+
+
+</div>
+
+<!-----------------------Modal for new users----------------------->
+<div class="modal fade" id="user_register" tabindex="-1" aria-labelledby="example" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+        <div class="modal-header">
+            <h3 class="modal-title" id="exam">難民ご支援の方々のご登録です。<br>ユーザー登録をすると空き家を借りることが可能になります。</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+       <div class="modal-body">
+        <form class="row g-2" method="post" action="/new/user">
+
+            <div class="form-group col-md-6">
+                <label class="form-label">姓 （代表者様）</label>
+                <input type="text" id="firstnewuser" name="firstnewuser" class="form-control" placeholder="鈴木" required="required" maxlength="35">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="form-label">名　（代表者様）</label>
+                <input type="text" id="lastnewuser" name="lastnewuser" class="form-control" placeholder="太郎" required="required" maxlength="35">
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label my-3">団体名</label>
+                <input type="text" class="form-control" name="groupnewuser" id="groupnewuser">
+            </div>
+
+            <div class="mt-3">
+                <label for="pswduser" class="form-label my-3">パスワード</label>
+                <input type="password" class="form-control" name="pswdnewuser" id="pswduser">
+            </div>
+
+            <div class="mt-3">
+                <label for="emailuser" class="form-label">メールアドレス</label>
+    　　　　　　　　<input type="email" class="form-control" id="emailuser" name="emailuser" aria-describedby="emailHelp" placeholder="例：aaaaa@example.com">
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label my-3">電話番号　ハイフン（‐）ありでお願いいたします。</label>
+                <input type="text" class="form-control" name="calluser" id="calluser" placeholder="例：123-4567-8910">
+            </div>
+
+            <input type="submit" class="btn btn-danger gap-2 col-3 mx-auto " value="送信">
+        </form>
+
+
+           <!--MODAL LOGIN PART-->
+           <div class="LoginPart">
+               <h1 class="text-center">---------------------------------------------------------------------</h1>
+               <h2 class="my-4 fw-bold text-center">ログインはこちらです</h2>
+
+               <form class="row g-2" method="post" action="/login/user">
+
+                               <div class="mt-3">
+                               <label class="form-label my-3">団体名</label>
+                               <input type="text" class="form-control" name="grouploguser" id="grouploguser">
+                               </div>
+
+
+            <div class="mt-3">
+                <label class="form-label my-3">パスワード</label>
+                <input type="password" class="form-control" name="pswdloguser">
+            </div>
+
+            <input type="submit" class="btn btn-danger gap-2 col-3 mx-auto " value="ログイン">
+        </form>
+
+           </div>
+
+
+        </div>
+
+
+        <div class="modal-footer">
+            <div class="form-group">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+{% endblock %}
+
+
+{% block footer %}
+<footer class="bg-light p-5">
+    <h1>web-mapping</h1>
+    <a href="#">お家を貸してくださっている皆さま</a>
+</footer>
+
+{% endblock %}
